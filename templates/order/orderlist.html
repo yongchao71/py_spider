@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="{CHARSET}">
+		<title>订单列表</title>
+		<style type="text/css">
+			
+		</style>
+		<script type="text/javascript" src="{{url_for('static', filename='js/jquery-1.11.1.min.js')}}"></script>
+		<script type="text/javascript">
+			$(function(){
+				$("a.del").click(function(){
+					var _This=$(this)
+					poid=_This.attr("itemid");
+					$.post("/order/del",{id:poid},function(data){
+						if(data=="True"){
+							alert("删除成功！")
+							window.location.reload()
+						}else{
+							alert("删除失败")
+						}
+						   
+					})
+				})
+				$("a.add").click(function(){
+					var _This=$(this)
+					itemname=_This.attr("itemname");
+					$.get("/order/add",{name:itemname},function(data){
+						if(data=="True"){
+							alert("添加成功")
+							window.location.reload()
+						}else{
+							alert("添加失败")
+						}
+					})
+				})
+			});
+		</script>
+	</head>
+	<body>
+		<!-- extend from base layout -->
+		{% extends "partial/_head.html" %}
+		{% block content %}
+		<h1 style="width: 100%;text-align: center;">员工信息</h1>
+		<table class="tb" style="width: 90%;margin: 0 auto;">
+			<tr><td>ID</td><td>姓名</td><td>年龄</td><td>性别</td><td>删除</td><td>添加</td></tr>
+			 {% for item in result %}
+              <tr>
+              	 <td>{{item['_id']}}</td>
+              	 <td>{{item['name']}}</td>
+              	 <td>{{item['age']}}</td>
+              	 <td>{{['女','男'][item['sex']]}}</td>
+              	 <td><a href="javascript:;" itemid="{{item['_id']}}" class="del">删除</a></td>
+              	 <td><a href="javascript:;" itemname="{{item['name']}}" class="add">添加</a></td>
+              </tr>
+             {% endfor %}
+			
+		</table>
+		{% endblock %}
+	
+       {% block AAA %}
+       	{% if name %}
+       <h1>Hello {{ name }}!</h1>
+         {% else %}
+       <h1>Hello World!</h1>
+         {% endif %}
+       {% endblock %}
+	</body>
+</html>

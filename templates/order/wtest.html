@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="{CHARSET}">
+		<title>wwwwtest</title>
+	</head>
+	<body>
+	
+		
+		 {% for item in ds %}
+              <tr>
+              	 <td>{{item}}</td>
+              	<td>{{ds[item]}}</td>
+              </tr>
+             {% endfor %}
+           <td>{{ds}}</td>  
+           
+           ______________________________________
+          {%for key,val in ds.items():%} 
+           		{{key}}<br>{{val}}</br>
+           {%endfor%}
+	</body>
+</html>
